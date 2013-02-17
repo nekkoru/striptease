@@ -1,0 +1,15 @@
+Striptease - a simple webcomics server
+2013 Mathilda Hartnell
+
+This is a simple webapp written in ruby/sinatra for hosting a webcomic. Not much to look at now, but here's my list of goals I plan to implement for the first release:
+
+1. Basic SQLite model #DONE as of 16.2.2013
+2. Getting comics by URL / Navigating the archives
+3. Example theme
+4. Admin panel
+  4.1 Adding / deleting / editing comics
+  4.2 Managing css / templates
+5. Mini-blog for rants
+6. RSS feed management
+7. Automatic comic/rant posting
+8. Installation script
