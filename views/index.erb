@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Striptease test build</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  <!-- TODO: add links to other site structures-->
+  Hello, world!
+    <p>
+      Strips for this webcomic:
+      <% @strips.each do |strip| %>
+        <li><%= strip.title %></li>
+      <% end %>
+  </body>
+</html>
