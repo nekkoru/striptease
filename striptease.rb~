@@ -23,7 +23,4 @@ get '/' do
   erb :index
 end
 
-get '/:id' do
-  @strip = Strip.get(params[:id])
-  erb :strip
-end
+
