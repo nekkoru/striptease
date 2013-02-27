@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Striptease test build</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  <div id="container">
+    <div id="heading">Striptease test build <span class="small">Replace this with your comic's logo</span></div>
+    <%= erb :menu %>
+    <div id="content">
+      <%= yield %>
+    </div>
+    <div id="footer">
+      Powered by <a href="http://github.com/nekkoru/striptease">Striptease</a>.
+  </div>
+  </body>
+</html>
