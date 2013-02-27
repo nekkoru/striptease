@@ -6,11 +6,7 @@
   </head>
   <body>
   <!-- TODO: add links to other site structures-->
-  Hello, world!
-    <p>
-      Strips for this webcomic:
-      <% @strips.each do |strip| %>
-        <li><%= strip.title %></li>
-      <% end %>
+  Hello, world! Add your global stylesheet for the website here. Leave the tag below unchanged.
+  <%= erb @request %>
   </body>
 </html>

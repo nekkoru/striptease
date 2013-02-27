@@ -20,10 +20,12 @@ DataMapper.finalize
 
 get '/' do
   @strips = Strip.all
+  @request = :home
   erb :index
 end
 
 get '/:id' do
   @strip = Strip.get(params[:id])
-  erb :strip
+  @request = :strip
+  erb :index
 end
