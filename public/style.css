@@ -1,0 +1,63 @@
+#body, html{
+    font-family: sans-serif;
+    background: #0080FF;
+    color: white;
+}
+/* divs */
+#container{
+    width: 800px;
+    margin: auto;
+}
+
+#heading{
+    font-size: 26px;
+    text-align: center;
+    }
+
+#strip{
+    width: 800px; /* as defined in the installation script */
+}
+
+#menu{
+    height: 40px;
+}
+
+#menu a, #nav a{
+    display: inline-block;
+    line-height: 20px;
+    padding: 10px;
+    background-color: #0070ee;
+}
+
+#blurb{
+    margin: 10px 0px;
+    background-color: #0070ee;
+}
+
+#blurb .posted{
+    font-size: 12px;
+}
+
+#footer{
+    width: 100%;
+    background-color: #0070ee;
+    font-size: 10px;
+    text-align: right;
+}
+
+
+/*elements*/
+a, a:visited{
+    color: #ffeeee;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+/*classes*/
+
+.small{
+    font-size: 12px;
+}

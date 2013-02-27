@@ -5,8 +5,14 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-  <!-- TODO: add links to other site structures-->
-  Hello, world! Add your global stylesheet for the website here. Leave the tag below unchanged.
-  <%= erb @request %>
+  <div id="container">
+    <div id="heading">Striptease test build <span class="small">Replace this with your comic's logo</span></div>
+    <%= erb :menu %>
+    <div id="content">
+      <%= erb @request %>
+    </div>
+    <div id="footer">
+      Powered by <a href="http://github.com/nekkoru/striptease">Striptease</a>.
+  </div>
   </body>
 </html>

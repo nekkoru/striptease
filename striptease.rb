@@ -14,18 +14,25 @@ class Strip
   property :title,    String, :required => true
   property :posted,   DateTime
   property :filename, String, :required => true
+  property :blurb,  Text
 end
 
 DataMapper.finalize
 
 get '/' do
-  @strips = Strip.all
-  @request = :home
+  @strip = Strip.last
+  @request = :strip
   erb :index
 end
 
 get '/:id' do
   @strip = Strip.get(params[:id])
   @request = :strip
+  erb :index
+end
+
+get '/archive' do
+  @strips = Strip.all
+  @request = :archive
   erb :index
 end
