@@ -2,6 +2,7 @@
 #2013 Mathilda Hartnell <nekkoru@gmail.com>
 #https://github.com/nekkoru/striptease
 
+require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
@@ -21,18 +22,17 @@ DataMapper.finalize
 
 get '/' do
   @strip = Strip.last
-  @request = :strip
-  erb :index
-end
-
-get '/:id' do
-  @strip = Strip.get(params[:id])
-  @request = :strip
-  erb :index
+  erb :index, :locals => { :strip => @strip }
 end
 
 get '/archive' do
   @strips = Strip.all
-  @request = :archive
-  erb :index
+  erb :archive, :locals => { :strips => @strips }
 end
+
+get '/:id' do
+  @strip = Strip.get(params[:id])
+  erb :strip, :locals => { :strip => @strip }
+end
+
+

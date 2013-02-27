@@ -1,5 +1,9 @@
-<ol>
-  <% @strips.each do |strip| %>
-     <li><a href="/<%= strip.id %>"> <%= strip.name %=></a></li>
-  <% end %>
-</ol>
+<% if !strips.nil? and !strips.empty? %>
+	<ol>
+  	<% strips.each do |strip| %>
+    	<li><a href="/<%= strip.id %>"> <%= strip.title %></a></li>
+  	<% end %>
+	</ol>
+<% else %>
+  <div> Archive - No Strips! </div>
+<% end %>
