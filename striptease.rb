@@ -1,10 +1,11 @@
-#Striptease - dead simple webcomic client
+#Striptease - dead simple webcomic management script
 #2013 Mathilda Hartnell <nekkoru@gmail.com>
 #https://github.com/nekkoru/striptease
 
 require 'sinatra'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
+reqiore 'dm-timestamps'
 
 DataMapper.setup(:default, "sqlite://#{Dir.pwd}/devel.db")
 
@@ -67,12 +68,45 @@ get '/logout' do
   redirect '/'
 end
 
-get '/admin_panel'
+post '/add' do
+  protected!
+  unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
+    redirect '/admin_panel'
+  end
+  s = Strip.new
+  s.filename = name
+  s.title = params[:title]
+  s.blurb = params[:blurb]
+  s.posted = [Time.now.year, Time.now.month, Time.now.day].join(-)
+  s.save
+  File.open(File.join(Dir.pwd,"public/uploads", name), "wb") do |f|
+    while(blk = tmpfile.read(65536))
+      f.write(blk)
+    end
+  end
+
+  "Comic uploaded successfully. <a href=\"admin_panel\">Return to admin panel.</a>"
+end
+
+post '/remove' do
+  protected!
+  params.each_value do |key|
+    File.delete(File.join(Dir.pwd,"public/uploads",key,Strip.get(key).filename)
+    Strip.get(key).destroy
+  end
+  redirect '/admin_panel'
+end
+
+  redirect '/admin_panel'
+end
+
+get '/admin_panel' do
   protected!
   erb :admin_panel
 end
 
 get '/:id' do
-  erb :index, :locals => [ :strip => Strip.get(params[:id]), :request => :strip ]
+ @strip = Strip.get(params[:id]
+ erb :strip
 end
 
