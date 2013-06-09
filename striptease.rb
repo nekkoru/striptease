@@ -20,19 +20,13 @@ end
 DataMapper.finalize
 
 get '/' do
-  @strip = Strip.last
-  @request = :strip
-  erb :index
+  erb :index, :locals => [ :strip => Strip.last, :request => :strip ]
 end
 
 get '/:id' do
-  @strip = Strip.get(params[:id])
-  @request = :strip
-  erb :index
+  erb :index, :locals => [ :strip => Strip.get(params[:id]), :request => :strip ]
 end
 
 get '/archive' do
-  @strips = Strip.all
-  @request = :archive
-  erb :index
+  erb :index, :locals => [ :strips => Strip.all, :request => :list ]
 end

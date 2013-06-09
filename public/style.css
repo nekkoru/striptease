@@ -32,6 +32,8 @@
 #blurb{
     margin: 10px 0px;
     background-color: #0070ee;
+    padding: 10px;
+    width: 100%;
 }
 
 #blurb .posted{
