@@ -50,7 +50,7 @@ get '/archive' do
   erb :archive
 end
 
-get '/admin' do
+get '/login' do
   if admin?
     redirect '/admin_panel'
   else
@@ -61,7 +61,7 @@ end
 post '/login' do
   if params['username']==settings.username&&params['password']==settings.password
     response.set_cookie(settings.username, :value=>settings.token)
-    redirect '/admin_panel'
+    redirect '/admin'
   else
     "Username or password incorrect"
   end
@@ -75,13 +75,12 @@ end
 post '/add' do
   protected!
   unless params[:file] && (tmpfile = params[:file][:tempfile]) && (name = params[:file][:filename])
-    redirect '/admin_panel'
+    "No file selected"
   end
   s = Strip.new
   s.filename = name
   s.title = params[:title]
   s.blurb = params[:blurb]
-  s.posted = [Time.now.year, Time.now.month, Time.now.day].join("-")
   s.save
   File.open(File.join(Dir.pwd,"public/uploads", name), "wb") do |f|
     while(blk = tmpfile.read(65536))
@@ -89,7 +88,7 @@ post '/add' do
     end
   end
 
-  "Comic uploaded successfully. <a href=\"admin_panel\">Return to admin panel.</a>"
+  "Comic uploaded successfully. <a href=\"admin\">Return to admin panel.</a>"
 end
 
 post '/remove' do
@@ -98,17 +97,17 @@ post '/remove' do
     File.delete(File.join(Dir.pwd,"public/uploads",key,Strip.get(key).filename))
     Strip.get(key).destroy
   end
-  redirect '/admin_panel'
+  redirect '/admin'
 end
 
-get '/admin_panel' do
+get '/admin' do
   protected!
   erb :admin_panel
 end
 
 get '/:id' do
   @strip = Strip.get(params[:id])
-  @prev = Strip.all(:id.lt => @strip.id, :order => [:id.asc]).first
+  @prev = Strip.all(:id.lt => @strip.id, :order => [:id.desc]).first
   @next = Strip.all(:id.gt => @strip.id, :order =>[:id.desc]).first
   @last = Strip.last
   @first = Strip.first
