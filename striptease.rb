@@ -5,7 +5,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
-reqiore 'dm-timestamps'
+require 'dm-timestamps'
 
 DataMapper.setup(:default, "sqlite://#{Dir.pwd}/devel.db")
 
@@ -39,11 +39,15 @@ end
 
 
 get '/' do
-  erb :index, :locals => [ :strip => Strip.last, :request => :strip ]
+  @strip = Strip.last
+  @prev = Strip.get(:id.lt => @strip.id, :limit => 1)
+  @first = Strip.first
+  erb :index
 end
 
 get '/archive' do
-  erb :index, :locals => [ :strips => Strip.all, :request => :list ]
+  @strips = Strip.all
+  erb :archive
 end
 
 get '/admin' do
@@ -77,7 +81,7 @@ post '/add' do
   s.filename = name
   s.title = params[:title]
   s.blurb = params[:blurb]
-  s.posted = [Time.now.year, Time.now.month, Time.now.day].join(-)
+  s.posted = [Time.now.year, Time.now.month, Time.now.day].join("-")
   s.save
   File.open(File.join(Dir.pwd,"public/uploads", name), "wb") do |f|
     while(blk = tmpfile.read(65536))
@@ -91,12 +95,9 @@ end
 post '/remove' do
   protected!
   params.each_value do |key|
-    File.delete(File.join(Dir.pwd,"public/uploads",key,Strip.get(key).filename)
+    File.delete(File.join(Dir.pwd,"public/uploads",key,Strip.get(key).filename))
     Strip.get(key).destroy
   end
-  redirect '/admin_panel'
-end
-
   redirect '/admin_panel'
 end
 
@@ -106,7 +107,11 @@ get '/admin_panel' do
 end
 
 get '/:id' do
- @strip = Strip.get(params[:id]
- erb :strip
+  @strip = Strip.get(params[:id])
+  @prev = Strip.all(:id.lt => @strip.id, :order => [:id.asc]).first
+  @next = Strip.all(:id.gt => @strip.id, :order =>[:id.desc]).first
+  @last = Strip.last
+  @first = Strip.first
+  erb :strip
 end
 

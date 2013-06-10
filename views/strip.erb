@@ -4,13 +4,17 @@
 <div id="Strip"> <img src="<%=@strip.filename%>"></div>
 
 <div id="nav">
-     <a href="/1">First</a>
+     <a href="<%= @first.id %>">First</a>
      <% if @strip.id == 1 %>
      	<a href="/1">Prev</a>
      <% else %>
-          <a href="/<%= @strip.id-1%> ">Prev</a> 
-     <% end %>		
-     <a href="/<%=@strip.id+1%> ">Next</a>
+          <a href="/<%= @prev.id%> ">Prev</a> 
+     <% end %>
+     <% if @strip.id == @last.id %>
+          <a href="/">Next</a>
+     <% else %>
+     	<a href="/<%= @next.id %>">Next</a>
+     <%end%>
      <a href="/">Last</a>
 </div>
 <div id="blurb"><span class="posted">Posted on <%= @strip.posted %></span></div>
