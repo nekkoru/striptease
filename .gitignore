@@ -3,3 +3,5 @@
 :.DS_Store?
 ._*
 *~
+devel.db
+public/uploads/*
