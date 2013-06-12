@@ -7,6 +7,14 @@ require 'data_mapper'
 require 'dm-sqlite-adapter'
 require 'dm-timestamps'
 
+#simple authentication, should work for now.
+#description of the method should be in the documentation
+#CHANGE THE USERNAME AND PASSWORD, LEAVE THE PARENTHESES
+set :username, 'admin'
+set :password, 'default'
+#Don't edit any lines below this.
+set :token, SecureRandom.base64(32)
+
 DataMapper.setup(:default, "sqlite://#{Dir.pwd}/devel.db")
 
 class Strip
@@ -20,12 +28,6 @@ end
 
 DataMapper.finalize
 
-#simple authentication, to be replaced later
-#description of the method should be in the documentation
-set :username, 'admin'
-set :token, SecureRandom.base64(32)
-set :password, 'default'
-
 helpers do
   def admin?
     request.cookies[settings.username]==settings.token
@@ -35,8 +37,6 @@ helpers do
     halt 401, 'Not authorized' unless admin?
   end
 end
-
-
 
 get '/' do
   @strip = Strip.last
@@ -94,7 +94,7 @@ end
 post '/remove' do
   protected!
   params.each_value do |key|
-    File.delete(File.join(Dir.pwd,"public/uploads",key,Strip.get(key).filename))
+    File.delete(File.join(Dir.pwd,"public/uploads",Strip.get(key).filename))
     Strip.get(key).destroy
   end
   redirect '/admin'
@@ -102,6 +102,7 @@ end
 
 get '/admin' do
   protected!
+  @strips = Strip.all
   erb :admin_panel
 end
 
