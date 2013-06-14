@@ -1,1 +1,19 @@
-Derp!
+<div id="title">#<%=@strip.id%> &ndash; <%= @strip.title %></div>
+
+
+<div id="Strip"> <img src="uploads/<%=@strip.filename%>"></div>
+
+<div id="nav">
+     <a href="<%= @first.id %>">First</a>
+     <% if @strip.id == 1 %>
+     	<a href="/1">Prev</a>
+     <% else %>
+          <a href="/<%= @prev.id%> ">Prev</a> 
+     <% end %>
+</div>
+<div id="blurb"><span class="posted">Posted on <%= @strip.posted %></span>
+<div id="blurb_content"><%= @strip.blurb%></div>
+</div>
+
+
+

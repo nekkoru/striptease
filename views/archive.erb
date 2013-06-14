@@ -1,5 +1,5 @@
-<ol>
+<ul class="archive_list">
   <% @strips.each do |strip| %>
-     <li><a href="/<%= strip.id %>"> <%= strip.title %></a></li>
+     <li><%= strip.id %>: <a href="/<%= strip.id %>"> <%= strip.title %></a></li>
   <% end %>
-</ol>
+</ul>

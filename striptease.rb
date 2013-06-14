@@ -40,8 +40,8 @@ end
 
 get '/' do
   @strip = Strip.last
-  @prev = Strip.get(:id.lt => @strip.id, :limit => 1)
   @first = Strip.first
+  @prev = Strip.all(:id.lt => @strip.id, :order => [:id.desc]).first
   erb :index
 end
 
@@ -81,6 +81,7 @@ post '/add' do
   s.filename = name
   s.title = params[:title]
   s.blurb = params[:blurb]
+  s.posted = Time.now
   s.save
   File.open(File.join(Dir.pwd,"public/uploads", name), "wb") do |f|
     while(blk = tmpfile.read(65536))
@@ -109,7 +110,7 @@ end
 get '/:id' do
   @strip = Strip.get(params[:id])
   @prev = Strip.all(:id.lt => @strip.id, :order => [:id.desc]).first
-  @next = Strip.all(:id.gt => @strip.id, :order =>[:id.desc]).first
+  @next = Strip.all(:id.gt => @strip.id, :order =>[:id.asc]).first
   @last = Strip.last
   @first = Strip.first
   erb :strip

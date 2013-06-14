@@ -1,19 +1,20 @@
 <h2>Add new strip</h2>
 	<form action="/add" method="post" enctype="multipart/form-data">
-      	      <label>Strip title  <input type="text" name="title"></label><br>
-	      <label>Strip file <input type="file" name="file"></label><br>
-	      <textarea cols="80" rows="15" name="blurb"></textarea>
-	      <input type="submit" value="Submit">
-	      
-</form>
+		<label>Strip title  <input type="text" name="title"></label><br>
+	  <label>Strip file <input type="file" name="file"></label><br>
+		Blurb for this strip (accepts <a href="#">Markdown</a>):
+	  <textarea cols="80" rows="15" name="blurb"></textarea>
+	  <input type="submit" value="Submit">     
+	</form>
 
 <h2>Remove strip</h2>
 	   <form action="/remove" method="post">
 	   <table>
-	   <tr><td>ID</td><td>Title</td><td>Filename</td><td>Delete?</td>
-	     <% @strips.each do |s| %>
-	     <tr><td><%= s.id %></td><td><%= s.title %></td><td><%= s.filename %></td><td><input type="checkbox" name="<%=s.id%>" value="<%=s.id%>"></td></tr>
+		   <tr><td>ID</td><td>Title</td><td>Filename</td><td>Delete?</td>
+  	   <% @strips.each do |s| %>
+	  	   <tr><td><%= s.id %></td><td><%= s.title %></td><td><%= s.filename %></td><td><input type="checkbox" name="<%=s.id%>" value="<%=s.id%>"></td></tr>
 	     <% end %>
-	     </table>
-	     <input type="submit" value="Delete"></form>
+	    </table>
+	  <input type="submit" value="Delete"></form>
+
 	     
