@@ -1,5 +1,9 @@
 <ul class="archive_list">
-  <% @strips.each do |strip| %>
-     <li><%= strip.id %>: <a href="/<%= strip.id %>"> <%= strip.title %></a></li>
-  <% end %>
+	<% if @strips.empty? %>
+		<p>No strips found!</p>
+  <% else %>
+	  <% @strips.each do |strip| %>
+  	   <li><%= strip.id %>: <a href="/<%= strip.id %>"> <%= strip.title %></a></li>
+  	<% end %>
+	<% end %>
 </ul>

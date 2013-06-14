@@ -2,6 +2,7 @@
 #2013 Mathilda Hartnell <nekkoru@gmail.com>
 #https://github.com/nekkoru/striptease
 
+require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
@@ -12,6 +13,7 @@ require 'dm-timestamps'
 #CHANGE THE USERNAME AND PASSWORD, LEAVE THE PARENTHESES
 set :username, 'admin'
 set :password, 'default'
+set :port, 80 #ask your admin about this!
 #Don't edit any lines below this.
 set :token, SecureRandom.base64(32)
 
@@ -115,4 +117,3 @@ get '/:id' do
   @first = Strip.first
   erb :strip
 end
-
